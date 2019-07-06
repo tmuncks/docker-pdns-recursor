@@ -1,9 +1,9 @@
 check_latest:
 	# determine latest version of pdns-recursor
 	# then determine latest version of a matching lua library for prcre regex
-	docker run --rm -ti alpine:edge ash -c 'apk search --no-cache --exact pdns-recursor | grep -v "^fetch" ; apk search --no-cache $$(apk info --no-cache --provides $$(apk info --no-cache --depends pdns-recursor | grep "lua") | grep " provides:" | cut -d- -f1)-rex-pcre | grep -v "^fetch"'
+	docker run --rm -ti alpine:edge ash -c 'apk update ; echo "-----" ; apk search --exact pdns-recursor ; apk search $$(apk info --provides $$(apk info --depends pdns-recursor | grep "lua") | grep " provides:" | cut -d- -f1)-rex-pcre'
 
-version = "4.1.13"
+version = 4.1.14
 
 build:
 	docker build . --no-cache -t tmuncks/pdns-recursor:latest
