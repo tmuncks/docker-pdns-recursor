@@ -8,7 +8,7 @@ RUN echo 'deb [arch=amd64] http://repo.powerdns.com/ubuntu bionic-rec-43 main' >
 
 # install pdns-recursor
 RUN apt-get update \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -y pdns-recursor=4.3.0-1pdns.bionic \
+  && DEBIAN_FRONTEND=noninteractive apt-get install -y pdns-recursor=4.3.0-1pdns.bionic lua-rex-pcre \
   && mkdir -p /var/run/pdns-recursor \
   && rm -rf /var/lib/apt/lists/*
 ADD recursor.conf /etc/powerdns/recursor.conf

@@ -6,7 +6,7 @@ check_latest:
 	docker pull ubuntu:bionic
 	docker run --rm -it ubuntu:bionic bash -c 'echo "deb [arch=amd64] http://repo.powerdns.com/ubuntu bionic-rec-43 main" >> /etc/apt/sources.list \
 	&& apt-get -o "Acquire::AllowInsecureRepositories=true" update \
-	&& apt-cache show --no-all-versions pdns-recursor'
+	&& echo "pdns-recursor : $$(apt-cache show --no-all-versions pdns-recursor | grep Version)"' 
 	
 build:
 	docker pull ubuntu:bionic
