@@ -1,16 +1,21 @@
+name = pdns-recursor
+version = 4.3.0
+
 check_latest:
-	# determine latest version of pdns-recursor
-	# then determine latest version of a matching lua library for prcre regex
-	docker run --rm -ti alpine:edge ash -c 'apk update ; echo "-----" ; apk search --exact pdns-recursor ; apk search $$(apk info --provides $$(apk info --depends pdns-recursor | grep "lua") | grep " provides:" | cut -d- -f1)-rex-pcre'
-
-version = 4.1.14
-
+	# determine latest version of dnsdist
+	docker pull ubuntu:bionic
+	docker run --rm -it ubuntu:bionic bash -c 'echo "deb [arch=amd64] http://repo.powerdns.com/ubuntu bionic-rec-43 main" >> /etc/apt/sources.list \
+	&& apt-get -o "Acquire::AllowInsecureRepositories=true" update \
+	&& apt-cache show --no-all-versions pdns-recursor'
+	
 build:
-	docker build . --no-cache -t tmuncks/pdns-recursor:latest
-	docker tag tmuncks/pdns-recursor:latest tmuncks/pdns-recursor:$(version)
-	docker tag tmuncks/pdns-recursor:latest tmuncks/pdns-recursor:$(version)-$(shell date +%Y%m%d)
+	docker pull ubuntu:bionic
+	docker build . --no-cache -t tmuncks/$(name):latest
+	docker tag tmuncks/$(name):latest tmuncks/$(name):$(version)
+	docker tag tmuncks/$(name):latest tmuncks/$(name):$(version)-$(shell date +%Y%m%d)
 
 push:
-	docker push tmuncks/pdns-recursor:latest
-	docker push tmuncks/pdns-recursor:$(version)
-	docker push tmuncks/pdns-recursor:$(version)-$(shell date +%Y%m%d)
+	docker push tmuncks/$(name):latest
+	docker push tmuncks/$(name):$(version)
+	docker push tmuncks/$(name):$(version)-$(shell date +%Y%m%d)
+
