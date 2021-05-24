@@ -12,6 +12,7 @@ Docker image with PowerDNS Recursor.
 (name=value)
 
 PDNS_allow_from=0.0.0.0/0
+PDNS_dnssec=validate
 ```
 
 The PowerDNS recursor is configurable via env vars. Every variable starting with `PDNS_` will be inserted into the default `/etc/powerdns/recursor.conf` config file in the following way:
@@ -31,5 +32,6 @@ Recurser accepting queries from everywhere:
 docker run -d -p 53:53 -p 53:53/udp --name pdns-recursor \
   --hostname ns1.example.com \
   -e PDNS_allow_from=0.0.0.0/0 \
+  -e PDNS_dnssec=validate \
   tmuncks/pdns-recursor
 ```
