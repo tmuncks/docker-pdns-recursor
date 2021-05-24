@@ -12,6 +12,7 @@ RUN echo "deb [arch=amd64] http://repo.powerdns.com/ubuntu ${REPO} main" >> /etc
 # install pdns-server and tools
 RUN apt-get update \
   && apt-get install -y --no-install-recommends pdns-recursor lua-rex-pcre \
+  && mkdir -p /var/run/pdns-recursor \
   && rm -rf /var/lib/apt/lists/*
 
 # prepare ports
@@ -22,4 +23,4 @@ COPY docker-entrypoint.sh /
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
 # default command
-CMD ["/usr/sbin/pdns_server", "--setuid=pdns", "--setgid=pdns", "--daemon=no", "--local-address=0.0.0.0", "--local-port=53"]
+CMD ["/usr/sbin/pdns_recursor", "--setuid=pdns", "--setgid=pdns", "--daemon=no", "--local-address=0.0.0.0", "--local-port=53"]
