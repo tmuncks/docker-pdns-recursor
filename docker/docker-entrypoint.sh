@@ -3,6 +3,8 @@
 set -euo pipefail
 
 # Setup recommended defaults
+PDNS_local_address=${PDNS_local_address:="0.0.0.0"}
+PDNS_local_port=${PDNS_local_port:="53"}
 PDNS_lua_config_file=${PDNS_lua_config_file:="/etc/powerdns/recursor.lua"}
 
 # Create config file based on PDNS_ environment variable

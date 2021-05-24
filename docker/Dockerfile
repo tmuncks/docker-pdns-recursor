@@ -23,4 +23,4 @@ COPY docker-entrypoint.sh /
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
 # default command
-CMD ["/usr/sbin/pdns_recursor", "--setuid=pdns", "--setgid=pdns", "--daemon=no", "--local-address=0.0.0.0", "--local-port=53"]
+CMD ["/usr/sbin/pdns_recursor", "--setuid=pdns", "--setgid=pdns", "--daemon=no"]
